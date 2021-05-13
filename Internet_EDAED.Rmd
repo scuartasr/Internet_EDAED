@@ -1,0 +1,62 @@
+---
+title: "Análisis exploratorio de la encuesta inicial"
+author:
+  - Simón Cuartas Rendón
+  - Danilo Isaac García Castaño
+  - David Mateo García Vallejo
+  - Luis Miguel Martínez Escobar
+  - Steffanni Soley Guerra Castillo
+date: "Mayo de 2021"
+output: 
+  html_document: 
+    toc: yes
+    toc_depth: 3
+    toc_float: true
+---
+
+<style>
+body {
+text-align: justify}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+```{r, include=FALSE}
+encuesta <- read.csv("DB_EDAED_Internet.csv")
+```
+
+```{r, include=FALSE}
+glimpse(encuesta)
+```
+
+```{r, include=FALSE}
+encuesta <- encuesta %>% 
+  mutate_if(is.character, as.factor)
+```
+
+```{r, include=FALSE}
+glimpse(encuesta)
+```
+
+## Depuración y ajustes de la base de datos.
+
+### Hora y día de realización de la prueba
+```{r, include = FALSE}
+encuesta <- encuesta %>% 
+  #mutate(TEST_DATE2 = as.Date(TEST_DATE, "%m/%d/%Y %H:%M"))
+  #mutate(TEST_DATE3 = as.POSIXlt(TEST_DATE), )
+  mutate(TEST_DATE2 = strptime(TEST_DATE, format="%m/%d/%Y  %H:%M"))
+```
+
+```{r}
+glimpse(encuesta)
+```
+
